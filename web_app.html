@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fortune Burger</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background-color: #fef9c3; /* Tailwind yellow-50 */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" class="min-h-screen flex items-center justify-center"></div>
+
+    <script type="text/javascript">
+      const { useState } = React;
+
+      const fortunes = [
+        "You will have a delicious surprise today.",
+        "Try something new—maybe with extra cheese.",
+        "A bold sauce leads to bold results.",
+        "Today is the perfect day to add bacon.",
+        "Grill your fears and serve your dreams.",
+        "Happiness is just one bun away."
+      ];
+
+      function FortuneBurgerApp() {
+        const [fortune, setFortune] = useState("");
+
+        const getRandomFortune = () => {
+          const randomIndex = Math.floor(Math.random() * fortunes.length);
+          setFortune(fortunes[randomIndex]);
+        };
+
+        return React.createElement(
+          "div",
+          { className: "flex flex-col items-center text-center p-6 space-y-6" },
+
+          // Title
+          React.createElement(
+            "h1",
+            { className: "text-4xl font-bold text-amber-800" },
+            "Fortune Burger"
+          ),
+
+          // Burger image (not cropped)
+          React.createElement("img", {
+            src: "https://cdn-icons-png.flaticon.com/512/3075/3075977.png",
+            alt: "Fortune Burger",
+            className:
+              "w-40 h-40 object-contain cursor-pointer shadow-lg hover:scale-105 transition-transform",
+            onClick: getRandomFortune
+          }),
+
+          // Fortune
+          fortune &&
+            React.createElement(
+              "div",
+              {
+                className:
+                  "max-w-md text-lg bg-white shadow-xl p-4 rounded-2xl border border-yellow-200"
+              },
+              fortune
+            )
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(React.createElement(FortuneBurgerApp));
+    </script>
+  </body>
+</html>
+
